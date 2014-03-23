@@ -45,12 +45,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init.qcom.bt.sh:/system/etc/init.qcom.bt.sh \
     $(LOCAL_PATH)/configs/init.qcom.fm.sh:/system/etc/init.qcom.fm.sh \
-    $(LOCAL_PATH)/configs/init.qcom.wifi.sh:/system/etc/init.qcom.wifi.sh
+    $(LOCAL_PATH)/configs/init.qcom.wifi.sh:/system/etc/init.qcom.wifi.sh \
+    $(LOCAL_PATH)/configs/init.qcom.coex.sh:/system/etc/init.qcom.coex.sh \
+    $(LOCAL_PATH)/configs/init.qcom.post_boot.sh:/system/etc/init.qcom.post_boot.sh
 
 # QC thermald config
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/thermald.conf:system/etc/thermald.conf
-
-PRODUCT_CHARACTERISTICS := nosdcard
 
 PRODUCT_PACKAGES += \
     libnetcmdiface
@@ -161,6 +161,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.cwm.forbid_format="/firmware/mdm,/firmware/q6,/firmware/wcnss" \
     ro.cwm.forbid_mount="/firmware/mdm,/firmware/q6,/firmware/wcnss" \
     ro.opengles.version=196608 \
+    ro.input.noresample=1 \
     ro.product.wireless=WCN3660 \
     ro.qualcomm.bt.hci_transport=smd \
     ro.telephony.call_ring.multiple=false \
