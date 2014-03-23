@@ -209,6 +209,7 @@ on post-fs-data
     mkdir /tombstones/mdm 0771 system system
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
 
     # QC audio/radio
@@ -379,6 +380,21 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet graphics
 
+service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
+    user root
+    disabled
+    oneshot
+
+service qcom-wifi-sh /system/bin/sh /system/etc/init.qcom.wifi.sh
+    class main
+    user root
+    oneshot
+
+service qcom-wifi-sh /system/bin/sh /system/etc/init.qcom.coex.sh
+    class main
+    user root
+    oneshot
+
 service qmuxd /system/bin/qmuxd
     class core
     user radio
@@ -469,6 +485,12 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     oneshot
 
 # Property triggers begin here
+
+on property:bluetooth.hciattach=true
+    start hciattach
+
+on property:bluetooth.hciattach=false
+    setprop bluetooth.status off
 
 on property:bluetooth.hciattach=true
     start hciattach
